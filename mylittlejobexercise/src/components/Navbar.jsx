@@ -1,6 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setFilter } from '../reducers/spotify/actions';
 
-const Navbar = () => <nav className="navbar navbar-default">
+const setCounter = (results, filter) => {
+  const pluralFilter = `${filter}s`;
+  return results[pluralFilter] !== undefined ? results[pluralFilter].total : 0;
+}
+
+const Navbar = ({ setFilter, results, filter }) => <nav className="navbar navbar-default">
   <div className="container-fluid">
     <div className="container">
       <div className="navbar-header">
@@ -17,19 +25,38 @@ const Navbar = () => <nav className="navbar navbar-default">
           <li className="dropdown active">
             <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter <span className="caret"></span></a>
             <ul className="dropdown-menu">
-              <li><a>Album</a></li>
-              <li><a>Artist</a></li>
-              <li><a>Playlist</a></li>
-              <li><a>Track</a></li>
+              <li onClick={() => setFilter('album')}><a>Album</a></li>
+              <li onClick={() => setFilter('artist')}><a>Artist</a></li>
+              <li onClick={() => setFilter('playlist')}><a>Playlist</a></li>
+              <li onClick={() => setFilter('track')}><a>Track</a></li>
             </ul>
           </li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li className="counter">Counter</li>
+          <li className="counter">Counter: {setCounter(results, filter)}</li>
         </ul>
       </div>
     </div>
   </div>
 </nav>;
 
-export default Navbar;
+Navbar.displayName = 'Navbar';
+
+Navbar.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+  results: PropTypes.object,
+  filter: PropTypes.string
+};
+
+export const mapStateToProps = ({ spotify }) => ({
+  filter: spotify.filter,
+  results: spotify.results
+});
+
+export const mapDispatchToProps = dispatch => ({
+  setFilter: (filter) => {
+    dispatch(setFilter(filter));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

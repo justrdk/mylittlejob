@@ -1,21 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Songs = () => <div className="container">
+const IMAGE_WIDTH = 64;
+const IMAGE_HEIGHT = 64;
+
+const renderResults = (results, filter) => {
+  const pluralFilter = `${filter}s`;
+
+  if (results[pluralFilter]) {
+    const { items } = results[pluralFilter];
+    return items.map(({ images, name, album }, index) => {
+      const thumbnail = filter === 'track'
+      ? album.images.find(({ width, height }) => width === IMAGE_WIDTH && height === IMAGE_HEIGHT)
+      : images.find(({ width, height }) => width === IMAGE_WIDTH && height === IMAGE_HEIGHT);
+      return <li key={index}><img className="thumb" src={thumbnail ? thumbnail.url: "http://placekitten.com/64/64"} /> {name}</li>
+    })
+  }
+};
+
+const Songs = ({ results, filter }) => <div className="container">
   <div className="col-xs-12 col-sm-8 col-sm-offset-2">
+    <h3> Filter By {filter} </h3>
     <ul className="results">
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 01</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 02</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 03</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 04</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 05</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 06</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 07</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 08</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 09</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 10</li>
-      <li><img className="thumb" src="http://placekitten.com/64/64" /> Result 11</li>
+      {renderResults(results, filter)}
     </ul>
   </div>
 </div>;
 
-export default Songs;
+Songs.displayName = 'Songs';
+
+Songs.propTypes = {
+  results: PropTypes.object,
+  filter: PropTypes.string
+};
+
+export const mapStateToProps = ({ spotify }) => ({
+  results: spotify.results,
+  filter: spotify.filter
+});
+
+export default connect(mapStateToProps)(Songs);
