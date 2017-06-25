@@ -1,24 +1,65 @@
-.App {
-  text-align: center;
+body {
+	background-color: #f5f7f9;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+	color: #777;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+a.search-icon {
+	position: absolute;
+	top: 1px;
+  right: 30px;
+  font-size: 130%;
+  border-left: 1px solid #ddd;
+  padding-left: 11px;
+  color: #555;
+  line-height: 46px;
+  height: 44px;
 }
 
-.App-intro {
-  font-size: large;
+a.search-icon:hover {
+	color: #777;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+li.counter {
+	padding: 15px 10px 15px 10px;
+  background-color: white;
+  color: #555;
+}
+
+ul.results {
+	list-style-type: none;
+	padding-left: 0px;
+	padding-top: 25px;
+}
+
+ul.results li {
+	border-bottom: 1px solid #ddd;
+	padding: 8px 0px 8px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul.results li:last-child {
+	border-bottom: 0px;
+}
+
+p.error {
+	color: red;
+	padding-top: 10px;
+}
+
+img.thumb {
+	padding-right: 15px;
+}
+
+.form-control:focus {
+	-webkit-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
 }
