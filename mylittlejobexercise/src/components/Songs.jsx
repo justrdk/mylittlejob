@@ -22,9 +22,9 @@ const renderResults = (results, filter) => {
 const Songs = ({ results, filter }) => <div className="container">
   <div className="col-xs-12 col-sm-8 col-sm-offset-2">
     <h3> Filter By {filter} </h3>
-    <ul className="results">
-      {renderResults(results, filter)}
-    </ul>
+    { results[`${filter}s`] && results[`${filter}s`].total === 0 ? <h4> No results found... </h4>
+      : <ul className="results">{renderResults(results, filter)}</ul>
+    }
   </div>
 </div>;
 

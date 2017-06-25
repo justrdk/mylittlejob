@@ -1,3 +1,3 @@
 export default {
-  token: ''
+  token: 'BQDBnGhUSqIc0pajW1dBnKuj8-l6bQ5VZqF3HNReHK6f2ZqHnkz1bizQFPKgV1ud3WwjOduO6BFIcXVkSArGTyJPqNx7_Pm9sh4UYcwTJtAFccnfVlocVuA3wt_alr7S0ZxdD7gciua8Qadh'
 }
